@@ -74,6 +74,22 @@ def make_optimizer_and_scheduler(cfg, policy):
             optimizer_params_dicts, lr=cfg.training.lr, weight_decay=cfg.training.weight_decay
         )
         lr_scheduler = None
+    elif cfg.policy.name == "imle":
+        optimizer = torch.optim.Adam(
+            policy.imle.parameters(),
+            cfg.training.lr,
+            cfg.training.adam_betas,
+            cfg.training.adam_eps,
+            cfg.training.adam_weight_decay,
+        )
+        from diffusers.optimization import get_scheduler
+
+        lr_scheduler = get_scheduler(
+            cfg.training.lr_scheduler,
+            optimizer=optimizer,
+            num_warmup_steps=cfg.training.lr_warmup_steps,
+            num_training_steps=cfg.training.offline_steps,
+        )
     elif cfg.policy.name == "diffusion":
         optimizer = torch.optim.Adam(
             policy.diffusion.parameters(),
@@ -310,7 +326,7 @@ def train(cfg: DictConfig, out_dir: str | None = None, job_name: str | None = No
     torch.backends.cuda.matmul.allow_tf32 = True
 
     logging.info("make_dataset")
-    offline_dataset = make_dataset(cfg)
+    offline_dataset = make_dataset(cfg, cfg.dataset.split)
     if isinstance(offline_dataset, MultiLeRobotDataset):
         logging.info(
             "Multiple datasets were provided. Applied the following index mapping to the provided datasets: "

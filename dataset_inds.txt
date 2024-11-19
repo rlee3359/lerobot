@@ -1,0 +1,27 @@
+(lerobot)  ✘  ~/workspace/imitation/lerobot   main ±  python lerobot/scripts/analyze_dataset.py policy=diffusion env=pusht
+/home/rob/workspace/imitation/lerobot/lerobot/scripts/analyze_dataset.py:5: UserWarning:
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  initialize(config_path="../configs")
+Fetching 212 files: 100%|███████████████████████████████████████████████████████████████| 212/212 [00:00<00:00, 6945.08it/s]
+
+Total frames: 25650
+Total episodes: 206
+Average frames per episode: 124.51
+
+For 10% episodes (20 episodes):
+Use frame index: 2598
+Command: python lerobot/scripts/train.py policy=diffusion env=pusht '+dataset.split="train[:2598]"'
+
+For 25% episodes (51 episodes):
+Use frame index: 6304
+Command: python lerobot/scripts/train.py policy=diffusion env=pusht '+dataset.split="train[:6304]"'
+
+For 50% episodes (103 episodes):
+Use frame index: 12167
+Command: python lerobot/scripts/train.py policy=diffusion env=pusht '+dataset.split="train[:12167]"'
+
+For 75% episodes (154 episodes):
+Use frame index: 18942
+Command: python lerobot/scripts/train.py policy=diffusion env=pusht '+dataset.split="train[:18942]"'

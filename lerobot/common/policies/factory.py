@@ -51,11 +51,21 @@ def get_policy_and_config_classes(name: str) -> tuple[Policy, object]:
         from lerobot.common.policies.tdmpc.modeling_tdmpc import TDMPCPolicy
 
         return TDMPCPolicy, TDMPCConfig
+    elif name == "imle":
+        from lerobot.common.policies.imle.configuration_imle import IMLEConfig
+        from lerobot.common.policies.imle.modeling_imle import IMLEPolicy
+
+        return IMLEPolicy, IMLEConfig
     elif name == "diffusion":
         from lerobot.common.policies.diffusion.configuration_diffusion import DiffusionConfig
         from lerobot.common.policies.diffusion.modeling_diffusion import DiffusionPolicy
 
         return DiffusionPolicy, DiffusionConfig
+    elif name == "rsimle":
+        from lerobot.common.policies.imle.configuration_imle import IMLEConfig
+        from lerobot.common.policies.imle.modeling_imle import IMLEPolicy
+        return IMLEPolicy, IMLEConfig
+
     elif name == "act":
         from lerobot.common.policies.act.configuration_act import ACTConfig
         from lerobot.common.policies.act.modeling_act import ACTPolicy
